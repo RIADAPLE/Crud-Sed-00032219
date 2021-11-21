@@ -1,18 +1,27 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Table, Button,Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import {Table, Button,Container} from 'reactstrap';
 
 
 
 function App(){
   
-  const[usuario,setUsuario] = useState("")
-  const[roles,setRoles] = useState("")
+  const[usuario,setUsuario] = useState([])
 
+  const fetchUsers = async () => {
+    const url = `${process.env.REACT_APP_API_URL}/users`;
+    try {
+      const response = await fetch(url);
+      const obj = await response.json();
+      const results = obj.data;
+      setUsuario(results);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const addToList = () => {
-    console.log(usuario + roles);
+    console.log(usuario);
   }
   return (
     <>
@@ -21,9 +30,7 @@ function App(){
       <label>Usuario</label>{" "}
       <input type="text" onChange={(event) =>{
         setUsuario(event.target.value)}}/>{" "}
-      <label>Rol</label> {" "}
-      <input type="text" onChange={(event) =>{
-        setRoles(event.target.value)}}/>{" "}
+      
 
     <Button color="primary" onClick={addToList}>Insertar Nuevo Usuario</Button>
     <br/><br/>
