@@ -1,28 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Table, Button,Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
-const data = [
-  {_id: 100, user: "Andrea"},
-  {_id: 101, user: "Adrián"},
-  {_id: 102, user: "Michelle"},
-  {_id: 103, user: "Aparicio"},
-];
+
 
 function App(){
   
+  const[usuario,setUsuario] = useState("")
+  const[roles,setRoles] = useState("")
+
+  const addToList = () => {
+    console.log(usuario + roles);
+  }
   return (
     <>
     <Container>
       <br/>
-    <Button color="primary">Insertar Nuevo Usuario</Button>
+      <label>Usuario</label>{" "}
+      <input type="text" onChange={(event) =>{
+        setUsuario(event.target.value)}}/>{" "}
+      <label>Rol</label> {" "}
+      <input type="text" onChange={(event) =>{
+        setRoles(event.target.value)}}/>{" "}
+
+    <Button color="primary" onClick={addToList}>Insertar Nuevo Usuario</Button>
     <br/><br/>
 
       <Table>
-      <thead><tr><th>Id</th>
-      <th>Usuario</th>
+      <thead><tr><th>Usuario</th>
+      <th>Roles</th>
       <th>Botones</th></tr></thead>
       <tbody>
       
